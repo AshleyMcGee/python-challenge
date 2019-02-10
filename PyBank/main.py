@@ -1,20 +1,39 @@
 import csv
 import os
-import math
+import statistics
 
 path = os.path.join("profit_loss.csv")
 
 def pyBank():
-    #count of all rows minus the header
-    totalMonths = len(list(reader))
-    #sum of the row values of "Profit/Loss"
-    netIncome = 0
-    netIncome += int(row[1])
-    #Average change over the course of 86 months
-    avgChange = netIncome / totalMonths
-    #Maximum increase in profits
-    maxChange = max(netIncome)
-    #Minimum decrease in profits
+    #For loop for totalMonths and netIncome
+    profitLoss = []
+    for row in reader:
+        profitLoss.append(int(row[1]))
+
+    #totalMonths
+    totalMonths = len(profitLoss)+1
+
+    #netIncome
+    netIncome = sum(profitLoss)
+
+    #For loop 
+    for row in reader:
+
+
+    #Average Increase
+    #averageChange = netIncome / totalMonths
+    #averageChange = []
+    #for i in profitLoss:
+        #monthOverMonth = lambda: row[i] + 1
+        #averageChange.append(monthOverMonth)
+
+    #average = statistics.mean(averageChange)
+    
+    #Maximum Change
+    maximumIncrease = max(profitLoss)
+
+    #Maximum Profit Loss
+    maximumDecrease = min(profitLoss)
 
     #Print statements to the console and text file
     print("-----------------------------------")
@@ -22,8 +41,10 @@ def pyBank():
     print("-----------------------------------")
     print(f"Total Months: {totalMonths}.")
     print(f"Total: ${netIncome}.")
-    print(f"Average Change: ${avgChange}.")
-    print(maxChange)
+    #print(f"Average Change: ${round(average, 2)}.")
+    print(f"Maximum Increase in Profits: ${maximumIncrease}.")
+    print(f"Minimum Decrease in Profits: ${maximumDecrease}.")
+    print("-----------------------------------")
 
 
 with open(path, "r") as csvfile:
@@ -31,3 +52,5 @@ with open(path, "r") as csvfile:
     next(reader)
     for row in reader:
         pyBank()
+
+    
