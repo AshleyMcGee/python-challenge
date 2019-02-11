@@ -3,7 +3,7 @@ import os
 import statistics
 
 path = os.path.join("profit_loss.csv")
-
+    
 def pyBank():
     #For loop for totalMonths and netIncome
     profitLoss = []
@@ -35,19 +35,14 @@ def pyBank():
         elif delta < smallest_delta:
             smallest_delta = delta
         
+        if largest_delta == delta:
+            monthLargestDelta = row[0]
+        
+        elif smallest_delta == delta:
+            monthSmallestDelta = row[0]
+        
         previous_value = i
-
-    monthLargestDelta = 0
-    monthSmallestDelta = 0
-    #for row in reader:
-        #largest_delta = str(largest_delta)
-        #smallest_delta = str(smallest_delta)
-        #if largest_delta in row[1]:
-            #monthLargestDelta = row[0]
-        #elif smallest_delta in row[1]:
-            #monthLargestDelta = row[0]
-
-
+  
     #Print statements to the console and text file
     print("-----------------------------------")
     print("Financial Analysis")
@@ -55,8 +50,9 @@ def pyBank():
     print(f"Total Months: {totalMonths}.")
     print(f"Total: ${netIncome}.")
     print(f"Average Change: ${round(averageChange,2)}.")
-    print(f"Greatest Increase in Profits: {monthLargestDelta}: ${largest_delta}.")
-    print(f"Greatest Decrease in Profits: {monthSmallestDelta}: ${smallest_delta}.")
+    #So close! It's taking the last month of the csv!
+    print(f"Greatest Increase in Profits: {monthLargestDelta} ${largest_delta}.")
+    print(f"Greatest Decrease in Profits: {monthSmallestDelta} ${smallest_delta}.")
     print("-----------------------------------")
 
 
