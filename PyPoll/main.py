@@ -2,17 +2,27 @@ import csv
 import os
 import statistics 
 
-path = os.path.join("election_data.csv")
+path = os.path.join("second_election_Data_homework.csv")
 
 def pyPoll():
-    voters = []
-    candidates = []
+    votes = []
+
     #Total Votes
     for row in reader:
-        voters.append(row[0])
+        votes.append(row[0])
+    
+    #Candidate list
+    col3 = set()
+    candidates = []
+    
+    #Get the candidates, update candidate list
+    for row in reader:
+        col3.add(row[2])
+        candidates = list(col3)
         
     
-    totalVotes = len(voters)
+        
+    totalVotes = len(votes)
 
 
     
@@ -21,7 +31,7 @@ def pyPoll():
     print("-----------------------------------")
     print(f"Total Voters: {totalVotes}.")
     print("-----------------------------------")
-    print(f"Candidates: ")
+    print(f"Candidates: \n")
     print("-----------------------------------")
     print(f"Winner: ")
     print(f"----------------------------------")
