@@ -3,45 +3,47 @@ import os
 import statistics
 
 path = os.path.join("profit_loss.csv")
-    
-def pyBank():
+
+def pyBank(reader):
     #For loop for totalMonths and netIncome
-    profitLoss = []
+    records = []
 
     for row in reader:
-        profitLoss.append(int(row[1]))
+        record = {'date': row[0], 'profit_loss': int(row[1])}
+        records.append(record)
 
     #total months
-    totalMonths = len(profitLoss)
+    totalMonths = len(records)
 
     #netIncome
-    netIncome = sum(profitLoss)
+    netIncome = sum([record['profit_loss'] for record in records])
 
     #Average Change
-    startValue = profitLoss[0]
-    endValue = profitLoss[-1]
-    averageChange = (endValue - startValue) / (len(profitLoss) - 1)
+    startValue = records[0]['profit_loss']
+    endValue = records[-1]['profit_loss']
+    averageChange = (endValue - startValue) / (len(records) - 1)
 
     #Maximum and Minimum Deltas
-    previous_value = profitLoss[0]
+    previous_value = records[0]['profit_loss']
     largest_delta = 0
     smallest_delta = 0
 
-    for i in profitLoss:
-        delta = i - previous_value
+    for record in records:
+        date = record['date']
+        value = record['profit_loss']
+
+        delta = value - previous_value
         if delta > largest_delta:
             largest_delta = delta
-
         elif delta < smallest_delta:
             smallest_delta = delta
         
         if largest_delta == delta:
-            monthLargestDelta = row[0]
-        
+            monthLargestDelta = date
         elif smallest_delta == delta:
-            monthSmallestDelta = row[0]
-        
-        previous_value = i
+            monthSmallestDelta = date        
+
+        previous_value = value
   
     #Print statements to the console and text file
     print("-----------------------------------")
@@ -72,9 +74,8 @@ def pyBank():
 
 with open(path, "r") as csvfile:
     reader = csv.reader(csvfile, delimiter = ",")
-    #next(reader)
-    for row in reader:
-        pyBank()
+    next(reader) # skip header
+    pyBank(reader)
 
 
     
