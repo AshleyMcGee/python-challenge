@@ -2,7 +2,7 @@ import csv
 import os
 import statistics
 
-path = os.path.join("second_election_Data_homework.csv")
+path = os.path.join("election_data.csv")
 
 def pyPoll():
 
