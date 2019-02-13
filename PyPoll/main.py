@@ -1,81 +1,76 @@
 import csv
 import os
+import statistics
 
 path = os.path.join("second_election_Data_homework.csv")
 
-def pyPoll(reader):
+def pyPoll():
 
-    #file handling
-    #lists to store data
     records = []
-    #col3 = set()
-    #candidates = []
-    candidatesResults = []
 
+    c1 = {'Name': 'Li', 'Votes': 0}
+    c2 = {'Name': 'Khan', 'Votes': 0}
+    c3 = {'Name': "O'Tooley", 'Votes': 0}
+    c4 = {'Name': 'Correy', 'Votes': 0}
+
+    candidates = [c1,c2,c3,c4]
+
+    #File handling
     with open(path, "r") as csvfile:
         reader = csv.reader(csvfile, delimiter = ",")
         header = next(reader)
 
-        #Go through the csv
+        #Loop through file and assign all records to a dictionary
         for row in reader:
-            #For every row in reader, create a dictionary of every record.
             record = {'Voter ID': row[0], 'County': (row[1]), 'Candidate': row[2]}
-            #For every record, append it to the list of records
+            #Append to records list
             records.append(record)
-
-            #This is the total number of votes cast in the election.
+            #Take the total votes as the length of records
             totalVotes = len(records)
 
-            #List of Candidates
-            #col3.add(record['Candidate'])
-            #candidates = list(col3)
+            #Loop through the candidates and check if the candidate name matches 
+            for candidate in candidates:
+                if candidate['Name'] == row[2]:
+                    #Update the candidate total votes in their respective dictionaries
+                    candidate['Votes'] += 1
 
-            #This is the starting value for total votes per candidate
-            totalCandidateVotes = 0
-
-            #This will tally up the occurences of each candidate name in the records
-            name = record['Candidate']
-
-            if record['Candidate'] == "Li":
-                totalCandidateVotes +1
-
-            #This is the percentage of votes per candidate of the whole
-            percentOfWhole = round((totalCandidateVotes / totalVotes) * 100, 3)
-
-            #Add each candidate dictionary to the list of candidate results
-        candidateStats = {'Name':name, 'Percentage':percentOfWhole, 'Total Votes': totalCandidateVotes}
-        candidatesResults.append(candidateStats)
-
-
-    print(totalVotes)
-    print(candidatesResults)
-
-    #print("------------------------------")
-    #print("Election Results")
-    #print("------------------------------")
-    #print(f"Total Votes: {totalVotes}.")
-    #print("------------------------------")
-    #print("Name: " + candidatesResults[0]['Name'] + " " + str(candidatesResults[0]['Percentage']) + " (" + str(candidatesResults[0]['Total Votes']) + ")")
-    #print(f"{candidatesResults[1]}")
-    #print(f"{candidatesResults[2]}")
-    #print("------------------------------")
-    #print(f"Winner: ")
+            #Candidate percentages
+            li_percent = "{:.3%}".format(c1['Votes'] / totalVotes)
+            khan_percent = "{:.3%}".format(c2['Votes'] / totalVotes)
+            correy_percent = "{:.3%}".format(c4['Votes'] / totalVotes)
+            otooley_percent = "{:.3%}".format(c3['Votes'] / totalVotes)
+            
+            #Find the Winner
+            winner = max(candidates, key=lambda x:x['Votes'])
+            
+    print("------------------------------")
+    print("Election Results")
+    print("------------------------------")
+    print(f"Total Votes: {totalVotes}.")
+    print("------------------------------")
+    print(f"Name: {c2['Name']} {khan_percent} ({c2['Votes']})")
+    print(f"Name: {c4['Name']} {correy_percent} ({c4['Votes']})")
+    print(f"Name: {c1['Name']} {li_percent} ({c1['Votes']})")
+    print(f"Name: {c3['Name']} {otooley_percent} ({c3['Votes']})")
+    print("------------------------------")
+    print('Winner: {Name}'.format(**winner))
+    print("------------------------------")
 
 
-    #with open("PyBankFinal.txt", "w") as file:
-        #file.write("-----------------------------------\n")
-        #file.write("\n")
-        #file.write("-----------------------------------\n")
-        #file.write(f"\n")
-        #file.write(f"\n")
-        #file.write(f"\n")
-        #file.write(f".\n")
-        #file.write(f"\n")
-        #file.write("-----------------------------------\n")
+    with open("PyPollFinal2.txt", "w") as file:
+        file.write("-----------------------------------\n")
+        file.write("Election Results\n")
+        file.write("-----------------------------------\n")
+        file.write(f"Total Votes: {totalVotes}.\n")
+        file.write(f"Name: {c2['Name']} {khan_percent} ({c2['Votes']})\n")
+        file.write(f"Name: {c4['Name']} {correy_percent} ({c4['Votes']})\n")
+        file.write(f"Name: {c1['Name']} {li_percent} ({c1['Votes']})\n")
+        file.write(f"Name: {c3['Name']} {otooley_percent} ({c3['Votes']})\n")
+        file.write("-------------------------------------\n")
+        file.write('Winner: {Name}\n'.format(**winner))
+        file.write("-----------------------------------\n")
 
 
-with open(path, "r") as csvfile:
-    reader = csv.reader(csvfile, delimiter = ",")
-    header = next(reader)
-    for row in reader:
-        pyPoll(reader)
+pyPoll()
+
+
