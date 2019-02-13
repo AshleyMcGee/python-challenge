@@ -1,2 +1,1 @@
-Despite my success with my program architecture layout and help from a tutor,
-I was deeply disturbed to find my comprehension of the problem and the steps to a solution to be extremely lacking. I have turned in what I have, but will be looking for a TA's assistance to complete this section in full. 
+Despite my success with my program architecture layout and help from a tutor, I was deeply disturbed to find my ability to articulate what I want my code to be able to do from concept to code. I sought out help from a TA this week to get some guidance how to articulate my ideas into functioning code. 
